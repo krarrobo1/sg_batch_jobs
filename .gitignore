@@ -1,1 +1,3 @@
 data/~$dataset.xlsx
+*.json
+*.pyc
