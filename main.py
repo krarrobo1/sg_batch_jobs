@@ -30,6 +30,6 @@ for value in values:
             else:
                 sections.add(value)
 
-depts_data = json_maker.list_to_json(list(depts))
-json_maker.write_json(depts_data, './data/depts_data.json');
+areas_data = json_maker.list_to_json(list(areas))
+json_maker.write_json(areas_data, './data/areas_data.json')
 
