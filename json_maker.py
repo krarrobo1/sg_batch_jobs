@@ -1,15 +1,14 @@
-import json
+import json as js
 import data_cleaner
 
-def list_to_json(my_list):
-    dictionaries = list()
+def iterable_to_json(my_list, keys):
+    data = list()
     for item in my_list:
-        id = data_cleaner.id_maker(item)
-        dictionaries.append({ 'id': id , 'label': item })
-
-    return dictionaries
-
-
-def write_json(data, directory):
-    with open(directory, 'w') as fp:
-        json.dump(data, fp)
+        values = item.split(';')
+        temp_dict = {}
+        for i in range(len(values)):
+            temp_dict[keys[i]] = values[i]
+        data.append(temp_dict)
+    
+    return data
+        

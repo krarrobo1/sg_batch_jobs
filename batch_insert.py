@@ -13,13 +13,13 @@ class FirestorePush:
         self.db = firestore.client()
 
         # My sample DB
-        with open('./data/areas_data.json', 'r') as f:
+        with open('./data/sections.json', 'r') as f:
             self.records_db = json.load(f)
 
     # Method to push bulk records to Firestore
     def push(self):
         # Get a ref to Firestore database.
-        records_collection = self.db.collection('academic-areas')
+        records_collection = self.db.collection('sections')
         
         # This is just for logging purposes.        
         total = len(self.records_db)
@@ -41,7 +41,18 @@ class FirestorePush:
             print(str(idx) + str('/') + str(total) + ': ' + str(record['id']))
             record_ref = records_collection.document(record['id'])
             # Include current record in batch
-            batch.set(record_ref, record)
+            record_temp = {
+                'label' : record['label'],
+                'department': {
+                    'name': record['department']['name'],
+                    'reference': self.db.document(record['department']['reference'])
+                }
+            }
+            # record_temp = {
+            #     'label' : record['label']
+            # }
+            batch.set(record_ref, record_temp)
+            # batch.set(record_ref, record)
         # Include current record in batch
         if idx % 500 != 0:
             print('Committing..')
