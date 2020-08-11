@@ -13,13 +13,13 @@ class FirestorePush:
         self.db = firestore.client()
 
         # My sample DB
-        with open('./data/areas_data.json', 'r') as f:
+        with open('./data/modules_data.json', 'r') as f:
             self.records_db = json.load(f)
 
     # Method to push bulk records to Firestore
     def push(self):
         # Get a ref to Firestore database.
-        records_collection = self.db.collection('academic-areas')
+        records_collection = self.db.collection('modules')
         
         # This is just for logging purposes.        
         total = len(self.records_db)
